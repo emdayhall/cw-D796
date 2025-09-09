@@ -5,7 +5,7 @@
 # MSCSCS
 # Submission Date: 09/05/2025
 # Course: D796
-# Create New User Account
+# Delete User Account
 ############
 
 # Verify there is a username parameter
