@@ -17,7 +17,6 @@ cleanDir() {
 	echo "rm -rdv $1/*"	
 }
 
-declare -a cleanup
 cleanup=('/test/a/' '/test/b/' '/test/c/')
 
 for i in "${cleanup[@]}"; do 

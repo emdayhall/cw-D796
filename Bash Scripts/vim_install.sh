@@ -5,20 +5,16 @@
 # MSCSCS
 # Submission Date: 09/05/2025
 # Course: D796
-# Check Network 3: Check Network with NSLookup
+# Install VI Improved if not already installed
+# Upgrading/Updating the package is handled in 
+# update_packages.sh 
 ############
 
-token="server can't find" # failure key
-uri="example.com"
-# uri="GGrnnmxx.com" # Debug value
-
-echo "Running..."
-lupr=`nslookup $uri | grep "$token"`
-if [ ${#lupr} -le 0 ]
-then
-	echo "Network Up"
-	exit
+vim_check=`apt-cache search 'VI Improved'`
+if [${#vim_check} -gt 0]; then
+	echo "Vim is already installed"
+#	It might make sense to upgrade Vim here.
+#	vinstall=`apt-get upgrade vim`
 else
-	echo -e "Failure: nslookup failed to reach $uri"
+	vinstall=`apt-get install vim`
 fi
-exit
