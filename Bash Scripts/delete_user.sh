@@ -23,6 +23,7 @@ if [ $usr_check > 0 ]; then
 	echo "$1: user account found"
 	# check for home directory
 	h=`ls /home/$1`
+	echo $h
 	if [[ ${#h} -gt 0 ]]; then
 		echo "PASS: $h" # Included for debug
 		echo "found $1 home directory: will delete /home/$1"
