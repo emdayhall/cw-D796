@@ -22,14 +22,14 @@ usr_check=`getent passwd $1`
 if [ $usr_check > 0 ]; then
 	echo "$1: user account found"
 	# check for home directory
-	h=`ls /home/$1`
-	echo $h
+	h=`ls -la /home/$1`
+# 	echo $h # included for debug
 	if [[ ${#h} -gt 0 ]]; then
-		echo "PASS: $h" # Included for debug
+# 		echo "PASS: $h" # included for debug
 		echo "found $1 home directory: will delete /home/$1"
 		delete_homedir=1
-	else:
-		echo "FAIL: Looks like home directory was a no go: $h"
+	else
+		echo "No home directory found for user: $1"
 	fi
 else
 	echo "Error: No user named $1 found"
@@ -39,7 +39,7 @@ fi
 read -p "Delete User: $1? (y/n) " r
 if [[ "$r" =~ ^n ]]
 then
-	echo "Not deleting $1"
+	echo "USER TERMINATED REQUEST: killing deletion of user: $1"
 	exit
 elif [[ "$r" =~ ^y ]] # if user response starts with a 'y'
 then	# Delete user account home directory
