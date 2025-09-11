@@ -29,6 +29,8 @@ then
 	then
 		echo "found $1 home directory: will delete /home/$1"
 		$delete_homedir=1
+	else:
+		echo "looks like $hd_check was a no go"
 	fi
 # create "dev_group if not"
 else
@@ -39,11 +41,11 @@ fi
 # Delete user account home directory
 uconf=0
 read -p "Delete User: $1? (y/n)" response
-if [ $reponse = "n"]
+if [ $reponse == "n"]
 then
 	echo "Not deleting $1"
 	exit
-elif [ $response = "y"]
+elif [ $response == "y"]
 then
 # 	userdel=`sudo userdel $1`
 	echo "sudo userdel $1"
