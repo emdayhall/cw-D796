@@ -16,39 +16,36 @@ else
 	echo "Error: No username specified"
 	exit
 fi
-
+delete_homedir=0
 # Verify the user account exists
 usr_check=`getent passwd $1`
 if [ $usr_check > 0 ]; then
 	echo "$1: user account found"
 	# check for home directory
-	delete_homedir=0
-	hd_check=`ls /home/$1`
-	if [[ ${#hd_check} -gt 0 ]]; then
-		echo "$hd_check" # Included for debug
+	h=`ls /home/$1`
+	if [[ ${#h} -gt 0 ]]; then
+		echo "PASS: $h" # Included for debug
 		echo "found $1 home directory: will delete /home/$1"
-		$delete_homedir=1
+		delete_homedir=1
 	else:
-		echo "looks like home directory $hd_check was a no go"
+		echo "FAIL: Looks like home directory was a no go: $h"
 	fi
-# create "dev_group if not"
 else
 	echo "Error: No user named $1 found"
 	exit
 fi
 
-# Delete user account home directory
 read -p "Delete User: $1? (y/n) " r
 if [[ "$r" =~ ^n ]]
 then
 	echo "Not deleting $1"
 	exit
-elif [[ "$r" =~ ^y ]]
-then
-	echo "running userdel $1" # included for debug
+elif [[ "$r" =~ ^y ]] # if user response starts with a 'y'
+then	# Delete user account home directory
+	echo "running userdel $1" # included for interactive UI
 	del_user=`userdel $1`
 	echo "$del_user" # included for debug
-	if [ $delete_homedir -ge 0 ]
+	if [ $delete_homedir -gt 0 ]
 	then
 		echo "running sudo rm -Rd /home/$1" # included for debug
 		`sudo rm -Rd /home/$1`
