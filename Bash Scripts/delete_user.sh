@@ -25,14 +25,14 @@ then
 	# check for home directory
 	delete_homedir=0
 	hd_check=`ls /home/$1`
-	if [ $hd_check > 0 ]
+	if [[ ${#hd_check} -gt 0 ]]
 	then
-		echo "$hd_check"
+		echo "$hd_check" # Included for debug
 		echo "found $1 home directory: will delete /home/$1"
 		$delete_homedir=1
 	else:
-		echo "$hd_checkß"
-		echo "looks like $hd_check was a no go"
+		echo "$hd_check"
+		echo "looks like home directory $hd_check was a no go"
 	fi
 # create "dev_group if not"
 else
@@ -41,20 +41,20 @@ else
 fi
 
 # Delete user account home directory
-read -p "Delete User: $1? (y/n)" r
+read -p "Delete User: $1? (y/n) " r
 if [[ "$r" =~ ^n ]]
 then
 	echo "Not deleting $1"
 	exit
-elif [[ "$response" =~ ^y ]]
+elif [[ "$r" =~ ^y ]]
 then
-# 	userdel=`sudo userdel $1`
-	echo "sudo userdel $1" # included for debug
-	echo "$userdel" # included for debug
+	echo "running userdel $1" # included for debug
+	del_user=`userdel $1`
+	echo "$del_user" # included for debug
 	if [ $delete_homedir -ge 0 ]
 	then
-# 		`sudo rm -Rd /home/$1`
-		echo "sudo rm -Rd /home/$1" # included for debug
+		echo "running sudo rm -Rd /home/$1" # included for debug
+		`sudo rm -Rd /home/$1`
 	else
 		echo "Home directory not found, no home directory deleted"
 	fi
