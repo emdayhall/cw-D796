@@ -18,19 +18,24 @@ fileSize() {
 	# return fileSize 
 	exit(file_size)
 }
-declare -a archives
+
 # Archive and compress files and directories in /etc
 # Using tar and gzip
-archives[1]=`tar | gzip`
+afn1="etc.tar.gzip"
+afn2="etc.tar.bzip"
+archive1=`tar cf - /etc | gzip $afn1`
 # Archive and compress the files and directories in /etc
 # using tar and bzip2
-archives[2]=`tar | bzip2` 
+archive2=`tar cf - /etc  | bzip2 $afn2` 
 # Evaluate the file size of each compressed file using fileSize()
 # for a in ${archives[@]}; do
 # 	echo fileSize($a)
 # done
-if [ fileSize(archives[1]) -gt fileSize(archives[2])]; then
+if [ fileSize($archive1) -gt fileSize($archives2)]; then
 	echo "Gzip file is $((#archives[1]-#archives[2])) larger than BZip file";
 else:
 	echo "Bzip2 file is $((#archives[2]]-#archives[1])) larger than Gzip file";
 fi
+
+
+https://github.com/emdayhall/cw-D796.git
