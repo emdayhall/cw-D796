@@ -25,7 +25,7 @@ then
 	# check for home directory
 	delete_homedir=0
 	hd_check=`ls /home/$1`
-	if [ $hd_check > 0 ]
+	if [ $hd_check -gt 0 ]
 	then
 		echo "found $1 home directory: will delete /home/$1"
 		$delete_homedir=1
@@ -41,11 +41,11 @@ fi
 # Delete user account home directory
 uconf=0
 read -p "Delete User: $1? (y/n)" response
-if [ "$reponse" == "n" ]
+if [[ "$reponse" ~= "n" ]]
 then
 	echo "Not deleting $1"
 	exit
-elif [ "$response" == "y" ]
+elif [[ "$response" ~= "y" ]]
 then
 # 	userdel=`sudo userdel $1`
 	echo "sudo userdel $1"
@@ -58,7 +58,7 @@ then
 		echo "Home directory not found, no home directory deleted"
 	fi
 else
-	echo "Response not recognized, quitting."
+	echo "$response not recognized, quitting."
 	exit
 fi
 
