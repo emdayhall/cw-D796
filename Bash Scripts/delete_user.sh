@@ -41,16 +41,16 @@ fi
 # Delete user account home directory
 uconf=0
 read -p "Delete User: $1? (y/n)" response
-if [ $reponse == "n"]
+if [ "$reponse" == "n" ]
 then
 	echo "Not deleting $1"
 	exit
-elif [ $response == "y"]
+elif [ "$response" == "y" ]
 then
 # 	userdel=`sudo userdel $1`
 	echo "sudo userdel $1"
-	echo $userdel
-	if [ $delete_homedir > 0 ]
+	echo "$userdel"
+	if [ $delete_homedir -ge 0 ]
 	then
 # 		`sudo rm -Rd /home/$1`
 		echo "sudo rm -Rd /home/$1"
