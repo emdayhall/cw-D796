@@ -31,11 +31,12 @@ archive2=`tar cf - /etc  | bzip2 $afn2`
 # for a in ${archives[@]}; do
 # 	echo fileSize($a)
 # done
-if [ fileSize($archive1) -gt fileSize($archives2)]; then
-	echo "Gzip file is $((#archives[1]-#archives[2])) larger than BZip file";
+a=fileSize($archive1)
+b=fileSize($archives2)
+if [ $a -gt $b ]; then
+
+	echo "Gzip file is $(($a - $b)) larger than BZip file";
 else:
-	echo "Bzip2 file is $((#archives[2]]-#archives[1])) larger than Gzip file";
+	echo "Bzip2 file is $(($b - $a)) larger than Gzip file";
 fi
 
-
-https://github.com/emdayhall/cw-D796.git
