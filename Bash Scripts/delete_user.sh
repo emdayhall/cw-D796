@@ -19,19 +19,16 @@ fi
 
 # Verify the user account exists
 usr_check=`getent passwd $1`
-if [ $usr_check > 0 ]
-then
+if [ $usr_check > 0 ]; then
 	echo "$1: user account found"
 	# check for home directory
 	delete_homedir=0
 	hd_check=`ls /home/$1`
-	if [[ ${#hd_check} -gt 0 ]]
-	then
+	if [[ ${#hd_check} -gt 0 ]]; then
 		echo "$hd_check" # Included for debug
 		echo "found $1 home directory: will delete /home/$1"
 		$delete_homedir=1
 	else:
-		echo "$hd_check"
 		echo "looks like home directory $hd_check was a no go"
 	fi
 # create "dev_group if not"
