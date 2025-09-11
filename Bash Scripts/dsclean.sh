@@ -9,7 +9,7 @@
 ############
 
 # Find free diskspace 
-free_ds=`df --output='avail'`
+free_ds=`df --output=avail /`
 ds=$((${free_ds:8}))
 
 # Start cleanDir() function
@@ -24,7 +24,7 @@ for i in "${cleanup[@]}"; do
 	cleanDir($1) 
 	done
 
-free_ds2=`df --output='avail'`
+free_ds2=`df --output=avail /`
 ds2=$((${free_ds2}))
 
 ds_delta=$(($ds-$ds2))

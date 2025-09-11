@@ -11,7 +11,7 @@
 ############
 
 vim_check=`apt-cache search 'VI Improved'`
-if [${#vim_check} -gt 0]; then
+if [ ${#vim_check} -gt 0 ]; then
 	echo "Vim is already installed"
 #	It might make sense to upgrade Vim here.
 #	vinstall=`apt-get upgrade vim`
