@@ -8,25 +8,28 @@
 # Assess and Cleanup Diskspace
 ############
 
-# Find free diskspace 
-free_ds=`df --output='avail' / | tail -n 1`
-# echo $free_ds
+# Get the value of the available diskspace 
+b=`df --output='avail' / | tail -n 1`
 
-# Start cleanDir() function
+# Function to remove the contents of a directory recursively
 cleanDir() { rm -rdv $1*; }
 
-declare -a cleanup=("/test/a/" "/test/b/" "/test/c/")
+# If a directory to clean is not provided at the command line use test values
+if [[ ! $1 ]]; then
+	declare -a cleanup=("/test/a/" "/test/b/" "/test/c/")
+else
+	declare -a cleanup=($1)
+fi
 
-for i in "${cleanup[@]}"; do 
-# 	echo $i;
- 	cleanDir $i 
-done
+# Loop through the cleanup array and execute cleanDir function for each entry
+for i in "${cleanup[@]}"; do cleanDir $i; done 
 
-free_ds2=`df --output=avail / | tail -n 1`
-# echo $free_ds2
+# Get the value of the amount of free diskspace again
+a=`df --output=avail / | tail -n 1`
+# Get the value of delta for available space after-before cleanDir
+ds_delta=$((a - b))
 
-ds_delta=$((free_ds2 - free_ds))
-# echo $ds_delta
+# Message results to the command line depending on the value of delta in relation to 0
 if [ $ds_delta -le 0 ]; then
 	echo "No significant disk space was freed."
 else
