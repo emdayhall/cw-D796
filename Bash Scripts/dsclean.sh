@@ -25,7 +25,7 @@ fi
 for i in "${cleanup[@]}"; do cleanDir $i; done 
 
 # Get the value of the amount of free diskspace again
-a=`df --output=avail / | tail -n 1`
+a=`df --output='avail' / | tail -n 1`
 # Get the value of delta for available space after-before cleanDir
 ds_delta=$((a - b))
 
