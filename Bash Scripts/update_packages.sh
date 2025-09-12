@@ -12,5 +12,28 @@
 # cmd=ls
 # [[ $(type -P "$cmd") ]] && echo "$cmd is in PATH"  || 
 #     { echo "$cmd is NOT in PATH" 1>&2; exit 1; }
-apt-get upgrade >> /tmp/update.log
-more /tmp/upgrade.log
+
+declare -a c=(yum dnf apt-get)
+x=0
+log2="/tmp/"
+for cmd in "$c[][@]"; do
+	i=$((x+1))
+	x=$1
+	n=$(type -P "$cmd")
+	if [[ ! n ]]; then
+		continue
+	else
+		break
+	fi
+done
+
+case "$x" in
+	0)	yum update >> /tmp/update.log
+		;;
+	1)	dnf update >> /tmp/update.log
+		;;
+	2)	apt-get update; apt-get upgrade >> /tmp/update.log
+		;;
+esac
+
+more /tmp/update.log
