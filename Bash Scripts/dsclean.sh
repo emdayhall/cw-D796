@@ -19,7 +19,8 @@ if [[ ! $1 ]]; then
 	declare -a cleanup=("/test/a/" "/test/b/" "/test/c/")
 else
 	declare -a cleanup=($1)
-	if [[ $1 =~ ^//tmp]]; then logdir="/var"; echo "Logging to $logdir"; fi
+	if [[ $1 =~ ^//tmp]]; then logdir="/var"; fi
+	echo "Logging to $logdir";
 fi
 
 # Loop through the cleanup array and execute cleanDir function for each entry
