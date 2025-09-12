@@ -12,7 +12,8 @@
 b=`df --output='avail' / | tail -n 1`
 logdir="/tmp"
 # Function to remove the contents of a directory recursively + log to /tmp/
-cleanDir() { rm -rdv $1* &>> $logdir/dsclean.log; }
+# cleanDir() { rm -rdv $1* &>> $logdir/dsclean.log; }
+cleanDir() { echo "rm -rdv $1* &>> $logdir/dsclean.log"; }
 
 # If a directory to clean is not provided at the command line use test values
 if [[ ! $1 ]]; then
@@ -20,6 +21,8 @@ if [[ ! $1 ]]; then
 else
 	declare -a cleanup=($1)
 	if [[ $1 =~ ^/tmp ]]; then logdir="/var"; fi
+	# There is no check here to prevent a full deletion at the root
+	if [[ $1 =~ "/" ]]; then echo "NEVER DELETE ROOT"; exit fi
 	echo "Logging to $logdir"
 fi
 
