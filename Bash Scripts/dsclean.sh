@@ -10,15 +10,16 @@
 
 # Get the value of the available diskspace 
 b=`df --output='avail' / | tail -n 1`
-
-# Function to remove the contents of a directory recursively
-cleanDir() { rm -rdv $1* &>> /tmp/dsclean.log; }
+logdir="/tmp"
+# Function to remove the contents of a directory recursively + log to /tmp/
+cleanDir() { rm -rdv $1* &>> $logdir/dsclean.log; }
 
 # If a directory to clean is not provided at the command line use test values
 if [[ ! $1 ]]; then
 	declare -a cleanup=("/test/a/" "/test/b/" "/test/c/")
 else
 	declare -a cleanup=($1)
+	if [[ $1 =~ ^//tmp]]; then logdir="/var"; echo "Logging to $logdir"; fi
 fi
 
 # Loop through the cleanup array and execute cleanDir function for each entry
