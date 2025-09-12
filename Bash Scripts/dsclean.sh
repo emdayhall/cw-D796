@@ -22,7 +22,7 @@ else
 	declare -a cleanup=($1)
 	if [[ $1 =~ ^/tmp ]]; then logdir="/var"; fi
 	# There is no check here to prevent a full deletion at the root
-	if [[ $1 =~ "/" ]]; then echo "NEVER DELETE ROOT"; exit; fi
+	if [[ $1 =~ ^/ ]] && [[ ${#1}] -le 2 ]]; then echo "NEVER DELETE ROOT"; exit; fi
 	echo "Logging to $logdir"
 fi
 
