@@ -12,7 +12,7 @@
 b=`df --output='avail' / | tail -n 1`
 
 # Function to remove the contents of a directory recursively
-cleanDir() { rm -rd $1*; }
+cleanDir() { rm -rd $1* &>> /tmp/dsclean.log; }
 
 # If a directory to clean is not provided at the command line use test values
 if [[ ! $1 ]]; then
