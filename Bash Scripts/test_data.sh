@@ -21,10 +21,14 @@ uri7="https://www.whats-on-netflix.com/wp-content/uploads/2024/03/my-oni-girl-ja
 
 declare -a pics=( $uri1 $uri2 $uri3 $uri4 $uri5 $uri6 $uri7)
 
-floc="/Users/emhall/test/a"
+floc1="/Users/emhall/test/a"
+floc2="/Users/emhall/test/b"
+floc3="/Users/emhall/test/c"
 l=0
 for i in "${pics[@]}"; do
 	echo $1
 	l=$(($l+1))
-	curl $i --output $floc/$l.jpg
+	curl $i --output $floc1/$l.jpg
+	curl $i --output $floc2/$l.jpg
+	curl $i --output $floc3/$l.jpg
 done
