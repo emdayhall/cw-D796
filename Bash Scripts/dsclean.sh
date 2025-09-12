@@ -13,7 +13,7 @@ free_ds=`df --output='avail' / | tail -n 1`
 # echo $free_ds
 
 # Start cleanDir() function
-cleanDir() { echo "rm -rdv $1/*"; rm -rdv $1*; }
+cleanDir() { rm -rdv $1*; }
 
 declare -a cleanup=("/test/a/" "/test/b/" "/test/c/")
 
