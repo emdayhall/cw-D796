@@ -10,7 +10,7 @@
 
 # Find free diskspace 
 free_ds=`df --output='avail' / | tail -n 1`
-echo $free_ds
+# echo $free_ds
 
 # Start cleanDir() function
 cleanDir() { echo "rm -rdv $1/*"; rm -rdv $1*; }
@@ -18,15 +18,15 @@ cleanDir() { echo "rm -rdv $1/*"; rm -rdv $1*; }
 declare -a cleanup=("/test/a/" "/test/b/" "/test/c/")
 
 for i in "${cleanup[@]}"; do 
-	echo $i;
+# 	echo $i;
  	cleanDir $i 
 done
 
 free_ds2=`df --output=avail / | tail -n 1`
-echo $free_ds2
+# echo $free_ds2
 
-ds_delta=$((free_ds - free_ds2))
-
+ds_delta=$((free_ds2 - free_ds))
+# echo $ds_delta
 if [ $ds_delta -le 0 ]; then
 	echo "No significant disk space was freed."
 else
