@@ -21,9 +21,9 @@ uri7="https://www.whats-on-netflix.com/wp-content/uploads/2024/03/my-oni-girl-ja
 
 declare -a pics=( $uri1 $uri2 $uri3 $uri4 $uri5 $uri6 $uri7)
 
-floc1="/Users/emhall/test/a"
-floc2="/Users/emhall/test/b"
-floc3="/Users/emhall/test/c"
+floc1="/test/a"
+floc2="/test/b"
+floc3="/test/c"
 l=0
 for i in "${pics[@]}"; do
 	echo $1
