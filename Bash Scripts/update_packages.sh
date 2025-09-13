@@ -8,23 +8,25 @@
 # Update Installed Packages
 ############
 
-declare -a commands=(yum dnf apt-get)
+declare -a c=(yum dnf apt-get brew)
+for a in "${c[@]}"; do echo $a; done
 x=0
+
 log2="/tmp/update.log"
 
 # Determine which package handler is available
-for cmd in "${commands[@]}"; do
-	i=$((x+1)); echo $i
+for cmd in "${c[@]}"; do 
+	i=$((x+1));
 	n=$(type -P "$cmd")
-	if [[ n ]]; then
-		unset $n
-		echo "$cmd"
-		break
-	else
-		unset $n
+	if [[ ! $n ]]; then
+# 		unset $n
+# 		echo "n: $n is null for $cmd, check next"
 		x=$i
-		echo "x: $x"
-		continue
+ 		continue
+	else
+# 		unset $n
+# 		echo "n: $n for $cmd is not null"
+		break
 	fi
 done
 
@@ -35,4 +37,5 @@ case "$x" in
 		;;
 	2)	echo "Using apt-get..."; apt-get -Uy upgrade >> $log2
 		;;
+	3) echo "Using brew..."; brew upgrade >> $log2
 esac
