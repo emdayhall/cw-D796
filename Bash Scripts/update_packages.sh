@@ -14,7 +14,7 @@ log2="/tmp/update.log"
 
 # Determine which package handler is available
 for cmd in "${c[@]}"; do
-	i=$((x+1));
+	i=$((x+1)); echo $i
 	n=$(type -P "$cmd")
 	if [[ n ]]; then
 		unset $n
