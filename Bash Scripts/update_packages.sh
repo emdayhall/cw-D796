@@ -8,20 +8,22 @@
 # Update Installed Packages
 ############
 
-declare -a c=(yum dnf apt-get)
+declare -a commands=(yum dnf apt-get)
 x=0
 log2="/tmp/update.log"
 
 # Determine which package handler is available
-for cmd in "${c[@]}"; do
+for cmd in "${commands[@]}"; do
 	i=$((x+1)); echo $i
 	n=$(type -P "$cmd")
 	if [[ n ]]; then
 		unset $n
+		echo "$cmd"
 		break
 	else
 		unset $n
 		x=$i
+		echo "x: $x"
 		continue
 	fi
 done
