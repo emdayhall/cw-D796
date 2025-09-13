@@ -16,17 +16,17 @@ fileSize() {
 	# file size of argument
 	file_size=``
 	# return fileSize 
-	exit(file_size)
+	return $file_size
 }
 
 # Archive and compress files and directories in /etc
 # Using tar and gzip
 afn1="etc.tar.gzip"
 afn2="etc.tar.bzip"
-archive1=`tar cf - /etc | gzip $afn1`
+archive1=`tar -czf ~/$afn1 /etc/*`
 # Archive and compress the files and directories in /etc
 # using tar and bzip2
-archive2=`tar cf - /etc  | bzip2 $afn2` 
+archive2=`tar -cjfy ~/$afn2 /etc/*` 
 # Evaluate the file size of each compressed file using fileSize()
 # for a in ${archives[@]}; do
 # 	echo fileSize($a)
@@ -34,7 +34,6 @@ archive2=`tar cf - /etc  | bzip2 $afn2`
 a=fileSize($archive1)
 b=fileSize($archives2)
 if [ $a -gt $b ]; then
-
 	echo "Gzip file is $(($a - $b)) larger than BZip file";
 else:
 	echo "Bzip2 file is $(($b - $a)) larger than Gzip file";
