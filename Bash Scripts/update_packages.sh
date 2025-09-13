@@ -35,4 +35,4 @@ case "$x" in
 		;;
 esac
 
-more /tmp/update.log
+tail /tmp/update.log
