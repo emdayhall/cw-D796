@@ -9,7 +9,6 @@
 ############
 
 declare -a c=(yum dnf apt-get brew)
-for a in "${c[@]}"; do echo $a; done
 x=0
 
 log2="/tmp/update.log"
