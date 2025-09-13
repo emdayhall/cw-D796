@@ -18,13 +18,9 @@ for cmd in "${c[@]}"; do
 	i=$((x+1));
 	n=$(type -P "$cmd")
 	if [[ ! $n ]]; then
-# 		unset $n
-# 		echo "n: $n is null for $cmd, check next"
 		x=$i
  		continue
 	else
-# 		unset $n
-# 		echo "n: $n for $cmd is not null"
 		break
 	fi
 done
