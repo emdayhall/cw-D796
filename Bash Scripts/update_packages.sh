@@ -13,8 +13,8 @@ x=0
 log2="/tmp/update.log"
 
 # Determine which package handler is available
-for cmd in "$c{[@]}"; do
-	i=$((x+1)); echo $i
+for cmd in "${c[@]}"; do
+	i=$((x+1));
 	n=$(type -P "$cmd")
 	if [[ n ]]; then
 		unset $n
@@ -22,7 +22,6 @@ for cmd in "$c{[@]}"; do
 	else
 		unset $n
 		x=$i
-		echo $x
 		continue
 	fi
 done
