@@ -8,31 +8,30 @@
 # Update Installed Packages
 ############
 
-# Check which package handler is available
-# cmd=ls
-# [[ $(type -P "$cmd") ]] && echo "$cmd is in PATH"  || 
-#     { echo "$cmd is NOT in PATH" 1>&2; exit 1; }
-
 declare -a c=(yum dnf apt-get)
 x=0
-log2="/tmp/"
-for cmd in "$c[][@]"; do
+log2="/tmp/update.log"
+
+# Determine which package handler is available
+for cmd in "$c{[@]}"; do
 	i=$((x+1))
-	x=$1
 	n=$(type -P "$cmd")
-	if [[ ! n ]]; then
-		continue
-	else
+	if [[ n ]]; then
+		unset $n
 		break
+	else
+		unset $n
+		x=$i
+		continue
 	fi
 done
 
 case "$x" in
-	0)	yum update >> /tmp/update.log
+	0)	echo "Using yum..."; yum update >> $log2
 		;;
-	1)	dnf update >> /tmp/update.log
+	1)	echo "Using dnf..."; dnf update >> $log2
 		;;
-	2)	apt-get update; apt-get upgrade >> /tmp/update.log
+	2)	echo "Using apt-get..."; apt-get -Uy upgrade >> $log2
 		;;
 esac
 
